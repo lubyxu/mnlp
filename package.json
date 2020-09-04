@@ -1,0 +1,20 @@
+{
+  "name": "mn-bundle",
+  "version": "0.0.1",
+  "description": "for bundle components ",
+  "main": "index.js",
+  "author": "lubyxu",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "less": "^3.12.2",
+    "merge2": "^1.4.1",
+    "through2": "^4.0.2"
+  }
+}
