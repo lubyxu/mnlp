@@ -2,19 +2,27 @@
   "name": "mn-bundle",
   "version": "0.0.1",
   "description": "for bundle components ",
-  "main": "index.js",
+  "main": "src/cli/dev/index.js",
+  "bin": "src/cli/dev/index.js",
   "author": "lubyxu",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "autoprefixer": "^9.8.6",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch": "^5.0.1",
     "less": "^3.12.2",
     "merge2": "^1.4.1",
-    "through2": "^4.0.2"
+    "postcss-modules": "^3.2.2",
+    "shelljs": "^0.8.4",
+    "through2": "^4.0.2",
+    "typescript": "^4.0.2"
   }
 }

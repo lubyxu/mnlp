@@ -19,7 +19,7 @@ const defaultTsConfig = {
   declaration: true
 };
 
-const compileTs = cssModule => stream => {
+const compileTs = stream => {
   const tsStream = stream
     .pipe(
       typescript(defaultTsConfig)
@@ -27,7 +27,7 @@ const compileTs = cssModule => stream => {
 
   return merge2([
     tsStream.dts,
-    compileJs(cssModule)(tsStream.js)
+    compileJs(tsStream.js)
   ]);
 };
 

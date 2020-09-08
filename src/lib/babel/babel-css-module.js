@@ -10,9 +10,6 @@ const babelTransformCssModule = function (babel) {
 
   return  {
     name: 'babelTransformCssModule',
-    pre(state) {
-      assert(!this.opts.module || typeof this.opts.module === 'object', 'module is required');
-    },
     visitor: {
       // import c from './style.less';
       ImportDefaultSpecifier(path, { file, opts }) {
@@ -43,6 +40,38 @@ const babelTransformCssModule = function (babel) {
               )
             ]
           );
+        }
+        else {
+          jsonDeclaration = t.variableDeclaration(
+            'const',
+            [
+              t.variableDeclarator(
+                t.identifier('c'),
+                t.newExpression(
+                  t.identifier('Proxy'),
+                  [
+                    t.objectExpression([]),
+                    t.objectExpression([
+                      t.objectMethod(
+                        'method',
+                        t.identifier('get'),
+                        [
+                          t.identifier('target'),
+                          t.identifier('key'),
+                          t.identifier('value')
+                        ],
+                        t.blockStatement(
+                          [
+                            t.returnStatement(t.identifier('key'))
+                          ]
+                        )
+                      )
+                    ])
+                  ]
+                )
+              )
+            ]
+          )
         }
         const lines = [
           t.ImportDeclaration(

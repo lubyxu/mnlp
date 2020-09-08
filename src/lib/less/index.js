@@ -2,8 +2,10 @@ const thought2 = require('through2');
 const fs = require('fs');
 const less = require('less');
 const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 
 const compileLess = stream => {
+  console.log('compiling less');
   return stream
     .pipe(
       thought2.obj(function (file, encoding, next) {
@@ -16,7 +18,7 @@ const compileLess = stream => {
 
           less.render(data, {javascriptEnabled: true})
             .then(content => {
-              file.contents = Buffer.from(content);
+              file.contents = Buffer.from(content.css);
               file.path = file.path.replace(/\.less$/, '.css');
               that.push(file);
               next();
@@ -30,11 +32,7 @@ const compileLess = stream => {
     )
     .pipe(
       postcss([
-        require('postcss-modules')({
-          getJSON: function (cssFileName, json, outputFileName) {
-            cssModuleJson[cssFileName] = json;
-          }
-        })
+        autoprefixer({overrideBrowserslist: ['last 3 version']}),
       ])
     );
 };

@@ -1,4 +1,4 @@
-const {task} = require('gulp');
+const {task, series} = require('gulp');
 const compileLess = require('../../lib/less');
 
 const runLess = () => {
