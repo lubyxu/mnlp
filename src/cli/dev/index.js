@@ -32,6 +32,7 @@ function dev() {
   task(
     'dev-watch',
     series('dev', () => {
+      console.log('watching files under src');
       watch(path.join(process.cwd(), 'src'), f => {
         const relativePath = path.relative(process.cwd(), f.path);
         console.log(`${relativePath} is changed`);
@@ -43,7 +44,7 @@ function dev() {
         if (f.event === 'unlink') {
           const fileToDelete = path.resolve(
             'dest/',
-            destRelativePath.replace(ext, ext === '.less' ? '.css' : '.js')
+            destRelativePath.replace(ext, /\.less|\.css$/.test(ext) ? '.css' : '.js')
           );
           if (fs.existsSync(fileToDelete)) {
             fs.unlinkSync(fileToDelete);
