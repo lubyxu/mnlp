@@ -1,10 +1,11 @@
-const gulp = require('gulp');
+const { src, dest } = require("gulp");
 const path = require('path');
 const fs = require('fs');
 const compileLess = require('../../lib/less');
 const compileTs = require('../../lib/ts');
 const compileJs = require('../../lib/js');
 const watch = require('gulp-watch');
+const plumber = require('gulp-plumber');
 
 function runWatch() {
   console.log('watching files under src');
@@ -30,18 +31,18 @@ function runWatch() {
     let stream;
 
     if (/\.less|\.css$/.test(ext)) {
-      stream = compileLess(src(relativePath, {cwd: process.cwd()}));
+      stream = compileLess(src(relativePath, {cwd: process.cwd()}).pipe(plumber()));
     }
     else if (/.tsx?$/.test(ext)) {
       // 需要注册全局declaration，必须加上.d.ts
       stream = compileTs(src([relativePath, 'src/**/*.d.ts'], {
         cwd: process.cwd(),
-      }));
+      }).pipe(plumber()));
     }
     else if (/.jsx?$/.test(ext)) {
       stream = compileJs(src(relativePath, {
         cwd: process.cwd(),
-      }));
+      }).pipe(plumber()));
     }
 
     if (!stream) {

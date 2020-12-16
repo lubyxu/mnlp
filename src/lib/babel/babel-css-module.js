@@ -82,6 +82,10 @@ const babelTransformCssModule = function (babel) {
         ].concat(jsonDeclaration ? [jsonDeclaration] : []);
 
         path.parentPath.replaceWithMultiple(lines);
+      },
+      // import './style.less';
+      ImportDeclaration(path) {
+        path.node.source.value = path.node.source.value.replace(/.less$/, '.css');
       }
     }
   };

@@ -6,19 +6,21 @@ const registerCompileTask = require('../task/compile');
 const registerWatchTask = require('../task/watch');
 const package = require('../../package.json');
 
-registerCompileTask();
-registerWatchTask();
 
 program.version(package.version)
   .option('-c, --compile', '编译文件')
   .option('-w, --watch', '监听文件')
+  .option('-o, --outDir <file>', '输出')
   .parse();
 
 console.log('Options:', program.opts());
 console.log('Remaining arguments: ', program.args);
 
 
-const {compile, watch} = program.opts();
+const {compile, watch, outDir} = program.opts();
+
+registerCompileTask();
+registerWatchTask();
 
 let task = [];
 if (compile) {
